@@ -18,8 +18,8 @@ jobs:
           name: "print hello"
           command: "echo hello world > output.txt"
       - persist_to_workspace:
-          root: . # relative path to our working directory
-          paths: # file globs which will be persisted to the workspace
+          root: ~/ # relative path to our working directory
+          paths:
             - output.txt
 
   print_output_file:
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: "print saved message"
           command: "cat output.txt"
