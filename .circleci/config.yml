@@ -2,6 +2,17 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# Define reusable steps.
+commands:
+  print_pipeline_id:
+    description: "A very simple command for demonstration purposes"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
+    steps:
+      - run: echo << parameters.to >>
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -36,6 +47,15 @@ jobs:
       - run:
           name: "print saved message"
           command: cat ~/output.txt
+
+  print_pipeline_id_job:
+    docker:
+      - image: circleci/node:13.8.0
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - print_pipeline_id:
+        to: $CIRCLE_WORKFLOW_ID
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
