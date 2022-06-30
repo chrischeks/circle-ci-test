@@ -68,10 +68,9 @@ jobs:
       - checkout
       - run: return 1
 
-      - run: 
+      - run:
           name: "Run only when step failed"
           command: echo "Job failed"
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -83,4 +82,4 @@ workflows:
           requires:
             - save_hello_world_output
       - print_pipeline_id_job
-      -fail_and_when_test
+      - fail_and_when_test
