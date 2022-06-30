@@ -57,6 +57,22 @@ jobs:
       - print_pipeline_id:
           to: $CIRCLE_WORKFLOW_ID
 
+  fail_and_when_test:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: circleci/node:13.8.0
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run: return 1
+
+      - run: 
+          name: "Run only when step failed"
+          command: echo "Job failed"
+
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -67,3 +83,4 @@ workflows:
           requires:
             - save_hello_world_output
       - print_pipeline_id_job
+      -fail_and_when_test
