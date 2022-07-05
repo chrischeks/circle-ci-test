@@ -35,7 +35,7 @@ jobs:
 
       - run:
           name: "print instance public ip"
-          command: echo "aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Project,Values=udacity" --output text > ~/inventory.txt"
+          command: echo "aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text" > ~/inventory.txt
       - persist_to_workspace:
           root: ~/ # relative path to our working directory
           paths:
