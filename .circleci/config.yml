@@ -34,12 +34,12 @@ jobs:
             - output.txt
 
       - run:
-        name: "print instance public ip"
-        command: echo "aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Project,Values=udacity" --output text >> ~/inventory.txt"
-    - persist_to_workspace:
-        root: ~/ # relative path to our working directory
-        paths:
-          - inventory.txt
+          name: "print instance public ip"
+          command: echo "aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Project,Values=udacity" --output text >> ~/inventory.txt"
+      - persist_to_workspace:
+          root: ~/ # relative path to our working directory
+          paths:
+            - inventory.txt
 
   print_output_file:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -55,7 +55,7 @@ jobs:
       - run:
           name: "print saved message"
           command: cat ~/output.txt
-      
+
       - run:
           name: "print saved instance public ip"
           command: cat ~/inventory.txt
